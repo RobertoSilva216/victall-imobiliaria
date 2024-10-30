@@ -27,7 +27,7 @@
             <td>{{ locacao.imovel.codigo }} - {{ locacao.imovel.descricao }}</td>
             <td>{{ locacao.cliente.nome }}</td>
             <td>{{ locacao.data_inicio }}</td>
-            <td>{% if locacao.data_fim %} {locacao.data_fim} {% else %} <span class="text-muted">N/A</span> {% endif %}</td>
+            <td>{% if locacao.data_fim %} {{locacao.data_fim}} {% else %} <span class="text-muted">N/A</span> {% endif %}</td>
             <td>
                 {% if locacao.ativo %} 
                 <span class="badge badge-success">Ativa</span>
