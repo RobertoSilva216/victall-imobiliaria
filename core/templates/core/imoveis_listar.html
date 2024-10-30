@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Relatório de Imóveis</h2>
+
+<form method="get" class="form-inline mb-3">
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+    <a href="{% url 'listar_imovel' %}" class="btn btn-secondary ml-2">Limpar Filtros</a>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Status</th>
+            <th>Tipo</th>
+            <th>Preço</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for imovel in imoveis %}
+        <tr>
+            <td>{{ imovel.codigo }}</td>
+            <td>
+                {% if imovel.disponivel %}
+                <span class="badge badge-success">Disponível</span>
+                {% else %}
+                <span class="badge badge-danger">Alugado</span>
+                {% endif %}
+            </td>
+            <td>{{ imovel.tipo }}</td>
+            <td>{{ imovel.preco }}</td>
+            <td>{{ imovel.descricao }}</td>
+            <td>
+                <a href="{% url 'editar_imovel' imovel.pk %}" class="btn btn-sm btn-warning">Editar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

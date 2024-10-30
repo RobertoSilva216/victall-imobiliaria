@@ -1,0 +1,49 @@
+{% extends 'base.html' %} 
+{% block content %}
+<h2>Relatório de Locações</h2>
+
+<form method="get" class="form-inline mb-3">
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+    <a href="{% url 'relatorio_locacoes' %}" class="btn btn-secondary ml-2">Limpar Filtros</a>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Imóvel</th>
+            <th>Cliente</th>
+            <th>Data de Início</th>
+            <th>Data de Fim</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for locacao in locacoes %}
+        <tr>
+            <td>{{ locacao.id }}</td>
+            <td>{{ locacao.imovel.codigo }} - {{ locacao.imovel.descricao }}</td>
+            <td>{{ locacao.cliente.nome }}</td>
+            <td>{{ locacao.data_inicio }}</td>
+            <td>{% if locacao.data_fim %} {locacao.data_fim} {% else %} <span class="text-muted">N/A</span> {% endif %}</td>
+            <td>
+                {% if locacao.ativo %} 
+                <span class="badge badge-success">Ativa</span>
+                {% else %}
+                <span class="badge badge-danger">Cancelada</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if locacao.ativo %}
+                <a href="{% url 'cancelar_locacao' locacao.id %}" class="btn btn-danger btn-sm">Cancelar</a>
+                {% else %}
+                <span class="text-muted">N/A</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

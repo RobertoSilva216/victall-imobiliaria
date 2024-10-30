@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Imóveis Disponíveis para Aluguel</h2>
+<div class="row">
+    {% for imovel in imoveis %}
+        <div class="col-md-4">
+            <div class="card">
+                {% if imovel.imagem %}
+                    <img src="{{ imovel.imagem.url }}" class="card-img-top" alt="Imagem do imóvel">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ imovel.tipo }} - {{ imovel.codigo }}</h5>
+                    <p class="card-text">{{ imovel.descricao }}</p>
+                    <p class="card-text">Preço: R$ {{ imovel.preco }}</p>
+                    <a href="{% url 'alugar_imovel' imovel.id %}" class="btn btn-primary">Alugar</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
